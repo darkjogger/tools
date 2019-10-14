@@ -11,13 +11,13 @@ def prompt(num):
         inp = input(f"Is {num} too (H)igh, too (L)ow, or (C)orrect? ")
     return inp.upper()
 
-
 def play(max):
     print(f"Think of a number from 1 to {max}.")
     input("When you're ready, press Enter.")
     low = 1
     num = (low+max)//2
     symbol = prompt(num)
+    count = 1
     while symbol !="C":
         if symbol == "L":
             low = num
@@ -25,8 +25,8 @@ def play(max):
             max = num
         num = (low + max)//2
         symbol = prompt(num)
-    print(num,"is the number you thought, Game over")
-
+        count += 1
+    print(f"{num} is the number you thought, I guessed {count} times.")
 
 if __name__ == '__main__':
     play(1000)

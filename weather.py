@@ -9,18 +9,10 @@ API_LOCATION = '/api/location/search/?query='
 API_WEATHER = '/api/location/'  # + woeid
 
 def fetch_location(query):
-    try:
-        return requests.get(API_ROOT + API_LOCATION + query).json()
-    except requests.exceptions.ConnectionError:
-        print("Failed to connect to server!")
-        return ""
+    return requests.get(API_ROOT + API_LOCATION + query).json()
 
 def fetch_weather(woeid):
-    try:
-        return requests.get(API_ROOT + API_WEATHER + str(woeid)).json()
-    except requests.exceptions.ConnectionError:
-        print("Failed to connect to server!")
-        return ""
+    return requests.get(API_ROOT + API_WEATHER + str(woeid)).json()
 
 def display_weather(weather):
     print(f"Weather for {weather['title']}:")
@@ -37,16 +29,19 @@ def weather_dialog():
     where = ''
     while not where:
         where = input("Where in the world are you? ")
-    locations = fetch_location(where)
-    if len(locations) == 0:
-        print("I don't know where that is.")
-    elif len(locations) > 1:
-        disambiguate_locations(locations)
-    else:
-        woeid = locations[0]['woeid']
-        d = fetch_weather(woeid)
-        if len(d)!= 0:
-            display_weather(d)
+    try:
+        locations = fetch_location(where)
+        if len(locations) == 0:
+            print("I don't know where that is.")
+        elif len(locations) > 1:
+            disambiguate_locations(locations)
+        else:
+            woeid = locations[0]['woeid']
+            d = fetch_weather(woeid)
+            if len(d)!= 0:
+                display_weather(d)
+    except requests.exceptions.ConnectionError:
+        print("Failed to connect to server!")
 
 
 if __name__ == '__main__':

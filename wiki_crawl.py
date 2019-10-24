@@ -1,6 +1,5 @@
 import requests
 import time
-import random
 from bs4 import BeautifulSoup
 try:
     from urlparse import urljoin  # Python2

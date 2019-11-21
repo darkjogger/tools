@@ -68,3 +68,10 @@ if __name__ == "__main__":
     analyze_income_expense(CLEANED_RECORD)
     analyze_max_expense_item(CLEANED_RECORD)
     analyze_max_expense_date(CLEANED_RECORD)
+          
+"""
+循环在 Python 中的性能非常低，当你处理较大规模的数据集时，往往需要等待很长时间。
+而在 Python 的生态中，已经有更好地处理 csv （或者其它表格类）的工具库，比如 
+numpy 和 pandas ，我们不再需要通过循环来求和或判断，而是使用 pandas 内置的
+函数进行处理，并且它们的处理速度会高很多。
+"""
